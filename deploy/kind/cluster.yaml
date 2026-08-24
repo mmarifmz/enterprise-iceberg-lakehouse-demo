@@ -4,7 +4,7 @@ nodes:
   - role: control-plane
     extraPortMappings:
       - containerPort: 30080
-        hostPort: 8080
+        hostPort: 18080
       - containerPort: 30081
         hostPort: 8081
       - containerPort: 30900
@@ -13,4 +13,3 @@ nodes:
         hostPort: 9001
       - containerPort: 30181
         hostPort: 8181
-

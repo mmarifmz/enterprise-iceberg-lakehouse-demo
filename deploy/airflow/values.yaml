@@ -29,16 +29,16 @@ dags:
     enabled: false
   gitSync:
     enabled: false
-extraVolumes:
+volumes:
   - name: demo-dags
     configMap:
       name: demo-dags
-extraVolumeMounts:
+volumeMounts:
   - name: demo-dags
     mountPath: /opt/airflow/dags/adventureworks_lakehouse.py
     subPath: adventureworks_lakehouse.py
     readOnly: true
-extraEnv:
+extraEnv: |
   - name: AIRFLOW__CORE__LOAD_EXAMPLES
     value: "False"
   - name: AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION

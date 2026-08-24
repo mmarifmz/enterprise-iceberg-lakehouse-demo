@@ -57,12 +57,40 @@ Copy-Item .env.example .env
 ./scripts/deploy-local.ps1
 ```
 
+For PostgreSQL running in the Ubuntu WSL distribution, the included provisioning
+script creates an isolated `airflow_demo` database and restricted owner, then
+writes generated credentials to the ignored `.env` file without displaying them:
+
+```powershell
+wsl.exe -d Ubuntu -u root --cd "$PWD" -- bash -lc './scripts/provision-wsl-airflow-postgres.sh "$PWD"'
+```
+
+The script preserves an existing `.env`; pass `--rotate` explicitly to replace
+the local credentials.
+
+Rotate the local Airflow UI credential at any time without printing it:
+
+```powershell
+./scripts/rotate-local-airflow-admin.ps1
+```
+
+If local MinIO credentials are intentionally rotated, the deployment recreates
+the disposable object-store pod and bootstrap job. Rerun the demo ingestion to
+repopulate the sample lakehouse afterward.
+
 Useful endpoints after deployment:
 
-- Airflow: `http://localhost:8080`
+- Airflow: `http://127.0.0.1:18080`
 - Trino: `http://localhost:8081`
 - MinIO console: `http://localhost:9001`
 - Iceberg REST catalog: `http://localhost:8181`
+
+If port 18080 was not mapped when an older kind cluster was created, expose the
+Airflow UI for the current session with:
+
+```powershell
+kubectl -n lakehouse port-forward service/airflow-api-server 18080:8080
+```
 
 Run the ingestion and query checks:
 

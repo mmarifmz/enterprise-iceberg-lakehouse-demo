@@ -5,8 +5,8 @@ from __future__ import annotations
 from datetime import UTC, datetime
 
 from airflow import DAG
-from airflow.kubernetes.secret import Secret
 from airflow.providers.cncf.kubernetes.operators.pod import KubernetesPodOperator
+from airflow.providers.cncf.kubernetes.secret import Secret
 
 MINIO_ACCESS_KEY = Secret("env", "AWS_ACCESS_KEY_ID", "lakehouse-secrets", "minio-root-user")
 MINIO_SECRET_KEY = Secret(
