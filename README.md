@@ -42,6 +42,15 @@ Install Docker Desktop (or another Docker Engine), `kubectl`, `kind`, `helm`, Py
 
 ## Local quick start
 
+Deploy and verify the core data plane first. This generates the local MinIO password directly inside an untracked Kubernetes Secret:
+
+```powershell
+./scripts/deploy-core-local.ps1
+./scripts/verify-core-local.ps1
+```
+
+Then configure Airflow with a dedicated managed-PostgreSQL database:
+
 ```powershell
 Copy-Item .env.example .env
 # Edit .env locally. AIRFLOW_METADATA_URL must point to a dedicated database/user.
@@ -60,6 +69,8 @@ Run the ingestion and query checks:
 ```powershell
 ./scripts/run-demo.ps1
 ```
+
+The current local verification loaded 60,397 `FactInternetSales` rows into three Parquet data files, committed an Iceberg snapshot, and returned the same row count through Trino.
 
 Destroy the disposable local environment:
 
@@ -82,4 +93,3 @@ CI performs static validation, Python tests, secret-pattern checks, and Terrafor
 ## License
 
 Apache-2.0. AdventureWorks sample data remains governed by Microsoft's source repository terms.
-

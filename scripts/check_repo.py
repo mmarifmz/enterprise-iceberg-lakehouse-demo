@@ -14,6 +14,8 @@ REQUIRED = [
     "deploy/kind/cluster.yaml",
     "deploy/kubernetes/lakehouse.yaml",
     "scripts/download_adventureworks.py",
+    "scripts/deploy-core-local.ps1",
+    "scripts/verify-core-local.ps1",
     "jobs/ingest_adventureworks.py",
     "infra/digitalocean/main.tf",
     ".github/workflows/ci.yml",
@@ -55,4 +57,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-

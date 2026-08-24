@@ -27,6 +27,7 @@ def build_spark() -> SparkSession:
         .config("spark.sql.catalog.demo.warehouse", "s3://warehouse/")
         .config("spark.sql.catalog.demo.io-impl", "org.apache.iceberg.aws.s3.S3FileIO")
         .config("spark.sql.catalog.demo.s3.endpoint", s3_endpoint)
+        .config("spark.sql.catalog.demo.s3.region", "us-east-1")
         .config("spark.sql.catalog.demo.s3.path-style-access", "true")
         .getOrCreate()
     )

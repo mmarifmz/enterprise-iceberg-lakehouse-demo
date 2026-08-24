@@ -41,6 +41,8 @@ with DAG(
         env_vars={
             "ICEBERG_REST_URI": "http://iceberg-rest:8181",
             "S3_ENDPOINT": "http://minio:9000",
+            "AWS_REGION": "us-east-1",
+            "AWS_DEFAULT_REGION": "us-east-1",
         },
         secrets=[MINIO_ACCESS_KEY, MINIO_SECRET_KEY],
         get_logs=True,
