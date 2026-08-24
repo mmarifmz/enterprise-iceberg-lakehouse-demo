@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Enterprise Iceberg Lakehouse Demo</title>
+  <style>
+    :root{color-scheme:dark;--bg:#07111f;--panel:#0f2138;--ink:#edf6ff;--muted:#99afc6;--a:#4fd1c5;--b:#67a8ff}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#12345a 0,var(--bg) 45%);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+    main{max-width:1100px;margin:auto;padding:72px 24px}.eyebrow{color:var(--a);font-weight:700;letter-spacing:.16em;text-transform:uppercase}h1{font-size:clamp(2.6rem,7vw,5.6rem);line-height:1;margin:.25em 0}.lead{max-width:760px;color:var(--muted);font-size:1.2rem}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:48px}.card{background:linear-gradient(145deg,#10243d,#0b192b);border:1px solid #28445f;border-radius:18px;padding:22px}.card b{color:var(--b);display:block;margin-bottom:8px}.flow{margin-top:42px;padding:24px;border:1px solid #28445f;border-radius:18px;color:var(--muted)}code{color:var(--a)}
+  </style>
+</head>
+<body><main>
+  <div class="eyebrow">Disposable · Reproducible · Demonstrable</div>
+  <h1>Enterprise Iceberg Lakehouse</h1>
+  <p class="lead">An end-to-end data engineering showcase: Microsoft AdventureWorks enters through Airflow and PySpark, lands as Apache Iceberg on S3-compatible storage, and becomes queryable through Trino.</p>
+  <section class="grid">
+    <div class="card"><b>Orchestration</b>Apache Airflow with external managed PostgreSQL metadata.</div>
+    <div class="card"><b>Compute</b>Spark and PySpark ingestion running on Kubernetes.</div>
+    <div class="card"><b>Open storage</b>Iceberg tables and Parquet files on MinIO/S3.</div>
+    <div class="card"><b>SQL analytics</b>Trino queries the same open tables without copying data.</div>
+  </section>
+  <div class="flow"><code>AdventureWorks → Airflow → Spark → Iceberg REST → MinIO/S3 → Trino</code><br>Runs locally on kind and can be recreated on a short-lived DigitalOcean k3s Droplet.</div>
+</main></body>
+</html>
+

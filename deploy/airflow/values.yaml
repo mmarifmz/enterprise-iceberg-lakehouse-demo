@@ -1,0 +1,45 @@
+executor: LocalExecutor
+postgresql:
+  enabled: false
+data:
+  metadataSecretName: airflow-metadata
+apiServer:
+  service:
+    type: NodePort
+    ports:
+      - name: airflow-ui
+        port: 8080
+        targetPort: api-server
+        nodePort: 30080
+createUserJob:
+  defaultUser:
+    enabled: true
+    username: admin
+    password: set-at-deploy-time
+    role: Admin
+    email: admin@example.invalid
+redis:
+  enabled: false
+statsd:
+  enabled: false
+triggerer:
+  enabled: true
+dags:
+  persistence:
+    enabled: false
+  gitSync:
+    enabled: false
+extraVolumes:
+  - name: demo-dags
+    configMap:
+      name: demo-dags
+extraVolumeMounts:
+  - name: demo-dags
+    mountPath: /opt/airflow/dags/adventureworks_lakehouse.py
+    subPath: adventureworks_lakehouse.py
+    readOnly: true
+extraEnv:
+  - name: AIRFLOW__CORE__LOAD_EXAMPLES
+    value: "False"
+  - name: AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION
+    value: "False"

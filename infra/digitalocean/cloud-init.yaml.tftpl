@@ -1,0 +1,9 @@
+#cloud-config
+package_update: true
+packages: [git, curl]
+runcmd:
+  - curl -sfL https://get.k3s.io | sh -
+  - git clone ${repository_url} /opt/enterprise-iceberg-lakehouse-demo
+  - chown -R ubuntu:ubuntu /opt/enterprise-iceberg-lakehouse-demo
+final_message: "k3s and the lakehouse repository are ready; inject secrets before deployment"
+

@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pytest ruff pyyaml
+      - run: python scripts/check_repo.py
+      - run: ruff check scripts jobs tests
+      - run: pytest -q
+      - name: Parse Kubernetes YAML
+        run: python -c "import glob,yaml; [list(yaml.safe_load_all(open(p, encoding='utf-8'))) for p in glob.glob('deploy/**/*.yaml', recursive=True)]"
+      - uses: hashicorp/setup-terraform@v3
+      - run: terraform -chdir=infra/digitalocean fmt -check
+      - run: terraform -chdir=infra/digitalocean init -backend=false
+      - run: terraform -chdir=infra/digitalocean validate
+
